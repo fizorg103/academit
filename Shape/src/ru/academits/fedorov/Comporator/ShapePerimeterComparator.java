@@ -1,6 +1,6 @@
-package ru.academits.fedorov.shapes.Comporator;
+package ru.academits.fedorov.Comporator;
 
-import ru.academits.fedorov.shapes.Shape;
+import ru.academits.fedorov.Shape;
 
 import java.util.Comparator;
 

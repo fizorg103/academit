@@ -1,7 +1,7 @@
-package ru.academits.fedorov.shapes;
+package ru.academits.fedorov;
 
-import ru.academits.fedorov.shapes.Comporator.ShapeAreaComparator;
-import ru.academits.fedorov.shapes.Comporator.ShapePerimeterComparator;
+import ru.academits.fedorov.Comporator.ShapeAreaComparator;
+import ru.academits.fedorov.Comporator.ShapePerimeterComparator;
 
 import java.util.Arrays;
 

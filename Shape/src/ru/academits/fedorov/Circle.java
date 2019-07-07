@@ -1,4 +1,4 @@
-package ru.academits.fedorov.shapes;
+package ru.academits.fedorov;
 
 public class Circle extends Shape{
     private double radius;

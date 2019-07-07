@@ -1,4 +1,4 @@
-package ru.academits.fedorov.shapes;
+package ru.academits.fedorov;
 
 public class Rectangle extends Shape {
     private double width;

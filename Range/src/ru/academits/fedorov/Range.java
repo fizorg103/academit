@@ -1,4 +1,4 @@
-package ru.academits.fedorov.range;
+package ru.academits.fedorov;
 
 public class Range {
     private double from;

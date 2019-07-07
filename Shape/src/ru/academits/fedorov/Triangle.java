@@ -1,4 +1,4 @@
-package ru.academits.fedorov.shapes;
+package ru.academits.fedorov;
 
 import java.util.Arrays;
 
