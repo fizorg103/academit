@@ -8,8 +8,8 @@ public class ShapePerimeterComporator implements Comparator<Shape> {
 
     @Override
     public int compare(Shape shape1, Shape shape2) {
-        Float area1 = new Float(shape1.getPerimeter());
-        Float area2 = new Float(shape2.getPerimeter());
+        Double area1 = new Double(shape1.getPerimeter());
+        Double area2 = new Double(shape2.getPerimeter());
         return area1.compareTo(area2);
     }
 }
