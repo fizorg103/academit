@@ -8,8 +8,8 @@ public class ShapeAreaComporator implements Comparator<Shape> {
 
     @Override
     public int compare(Shape shape1, Shape shape2) {
-        Float area1 = new Float(shape1.getArea());
-        Float area2 = new Float(shape2.getArea());
+        Double area1 = shape1.getArea();
+        Double area2 = shape2.getArea();
         return area1.compareTo(area2);
     }
 }
