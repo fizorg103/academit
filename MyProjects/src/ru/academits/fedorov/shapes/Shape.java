@@ -16,8 +16,4 @@ public class Shape {
     public double getPerimeter() {
         return 0;
     }
-
-    public static void main(String[] args) {
-
-    }
 }
