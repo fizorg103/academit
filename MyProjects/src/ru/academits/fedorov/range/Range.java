@@ -25,6 +25,7 @@ public class Range {
         return this.to;
     }
 
+    @Override
     public String toString() {
         return "(" + this.from + ", " + this.to + ")";
     }
