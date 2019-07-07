@@ -27,4 +27,9 @@ public class Square extends Shape {
     public double getPerimeter() {
         return 4 * width;
     }
+
+    @Override
+    public String toString(){
+        return "Квадрат со стороной = " + width;
+    }
 }

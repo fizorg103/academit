@@ -28,4 +28,9 @@ public class Rectangle extends Shape {
     public double getPerimeter() {
         return 2 * (width + height);
     }
+
+    @Override
+    public String toString(){
+        return "Прямоугольник со шириной = " + width + " и высотой = " + height;
+    }
 }

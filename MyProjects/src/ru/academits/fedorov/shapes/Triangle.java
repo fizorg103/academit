@@ -41,6 +41,15 @@ public class Triangle extends Shape {
         return getDistance(r1, r2) + getDistance(r1, r3) + getDistance(r2, r3);
     }
 
+    @Override
+    public String toString(){
+        String result = "Трегольник. Координаты точек (x, y)" + System.lineSeparator();
+        result += "(" + r1[0] + ", " + r1[1] + ")" + System.lineSeparator();
+        result += "(" + r2[0] + ", " + r2[1] + ")" + System.lineSeparator();
+        result += "(" + r3[0] + ", " + r3[1] + ")" + System.lineSeparator();
+        return result;
+    }
+
     private double getMax(double[] array) {
         return Arrays.stream(array).max().getAsDouble();
     }
