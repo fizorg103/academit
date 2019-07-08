@@ -1,4 +1,4 @@
-package ru.academits.fedorov;
+import ru.academits.fedorov.range.Range;
 
 public class Test {
     public static void main(String[] args) {
