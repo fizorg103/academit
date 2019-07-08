@@ -1,4 +1,4 @@
-package ru.academits.fedorov;
+package ru.academits.fedorov.shape;
 
 
 public class Square extends Shape {
