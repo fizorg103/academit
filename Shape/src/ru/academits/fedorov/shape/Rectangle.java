@@ -46,4 +46,9 @@ public class Rectangle extends Shape {
         Rectangle temp = (Rectangle) o;
         return isEquals(temp.width, width) && isEquals(temp.height, height);
     }
+
+    @Override
+    public int hashCode() {
+        return (int) width * 10 + (int) height;
+    }
 }

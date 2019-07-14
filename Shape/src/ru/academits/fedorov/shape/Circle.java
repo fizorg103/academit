@@ -44,4 +44,9 @@ public class Circle extends Shape{
         Circle temp = (Circle) o;
         return isEquals(temp.radius, radius);
     }
+
+    @Override
+    public int hashCode() {
+        return (int) radius * 10;
+    }
 }

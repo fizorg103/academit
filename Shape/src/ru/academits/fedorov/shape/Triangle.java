@@ -69,6 +69,11 @@ public class Triangle extends Shape {
 
         Triangle temp = (Triangle) o;
         return isEquals(temp.r1[0], r1[0]) && isEquals(temp.r1[1], r1[1]) && isEquals(temp.r2[0], r2[0]) &&
-               isEquals(temp.r2[1], r2[1]) && isEquals(temp.r3[0], r3[0]) && isEquals(temp.r3[1], r3[1]);
+                isEquals(temp.r2[1], r2[1]) && isEquals(temp.r3[0], r3[0]) && isEquals(temp.r3[1], r3[1]);
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (r1[0] + r1[1]) * 100 + (int) (r2[0] + r2[1]) * 10 + (int) (r3[0] + r3[1]);
     }
 }

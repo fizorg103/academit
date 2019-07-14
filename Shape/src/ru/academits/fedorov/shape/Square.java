@@ -46,4 +46,8 @@ public class Square extends Shape {
         return isEquals(temp.side, side);
     }
 
+    @Override
+    public int hashCode() {
+        return (int) side * 10;
+    }
 }
