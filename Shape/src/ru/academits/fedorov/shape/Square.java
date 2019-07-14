@@ -2,34 +2,34 @@ package ru.academits.fedorov.shape;
 
 
 public class Square extends Shape {
-    private double width;
+    private double side;
 
     public Square(double width) {
-        this.width = width;
+        this.side = width;
     }
 
     @Override
     public double getWidth() {
-        return width;
+        return side;
     }
 
     @Override
     public double getHeight() {
-        return width;
+        return side;
     }
 
     @Override
     public double getArea() {
-        return width * width;
+        return side * side;
     }
 
     @Override
     public double getPerimeter() {
-        return 4 * width;
+        return 4 * side;
     }
 
     @Override
     public String toString(){
-        return "Квадрат со стороной = " + width;
+        return "Square#" + side;
     }
 }

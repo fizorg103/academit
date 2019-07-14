@@ -31,6 +31,6 @@ public class Rectangle extends Shape {
 
     @Override
     public String toString(){
-        return "Прямоугольник со шириной = " + width + " и высотой = " + height;
+        return "Rectangle#" + width + ":" + height;
     }
 }

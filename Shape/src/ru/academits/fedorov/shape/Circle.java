@@ -29,6 +29,6 @@ public class Circle extends Shape{
 
     @Override
     public String toString(){
-        return "Окружность с радиусом = " + radius;
+        return "Circle#" + radius;
     }
 }

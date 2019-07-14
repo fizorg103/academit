@@ -42,12 +42,8 @@ public class Triangle extends Shape {
     }
 
     @Override
-    public String toString(){
-        String result = "Трегольник. Координаты точек (x, y)" + System.lineSeparator();
-        result += "(" + r1[0] + ", " + r1[1] + ")" + System.lineSeparator();
-        result += "(" + r2[0] + ", " + r2[1] + ")" + System.lineSeparator();
-        result += "(" + r3[0] + ", " + r3[1] + ")" + System.lineSeparator();
-        return result;
+    public String toString() {
+        return "Triangle#" + r1[0] + "," + r1[1] + ":" + r2[0] + "," + r2[1] + ":" + r3[0] + "," + r3[1];
     }
 
     private double getMax(double[] array) {
