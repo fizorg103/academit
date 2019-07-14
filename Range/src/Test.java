@@ -1,11 +1,9 @@
 import ru.academits.fedorov.range.Range;
 
-import ru.academits.fedorov.Range;
-
 public class Test {
     public static void main(String[] args) {
         Range range1 = new Range(1.2, 2.5);
-        Range range2 = new Range(1.4, 2.6);
+        Range range2 = new Range(1.2, 2.5);
 
         System.out.println("Интервал A: " + range1.toString());
         System.out.println("Интервал B: " + range2.toString());

@@ -62,7 +62,7 @@ public class Range {
             toMin = this.to;
         }
 
-        if (fromMax < toMin) {
+        if (fromMax <= toMin) {
             return new Range[]{new Range(fromMin, toMax)};
         }
         return new Range[]{new Range(this.from, this.to), new Range(from, to)};
@@ -72,7 +72,7 @@ public class Range {
         double from = range.from;
         double to = range.to;
 
-        if (from < this.from) {
+        if (from <= this.from) {
             if (to < this.from) {
                 return new Range[]{new Range(this.from, this.to)};
             }
