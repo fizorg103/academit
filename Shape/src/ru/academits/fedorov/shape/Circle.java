@@ -31,4 +31,17 @@ public class Circle extends Shape{
     public String toString(){
         return "Circle#" + radius;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Circle temp = (Circle) o;
+        return isEquals(temp.radius, radius);
+    }
 }

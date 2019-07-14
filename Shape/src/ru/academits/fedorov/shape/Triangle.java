@@ -57,4 +57,18 @@ public class Triangle extends Shape {
     private double getDistance(double[] r1, double[] r2) {
         return Math.sqrt(Math.pow(r1[1] - r2[1], 2) + Math.pow(r1[0] - r2[0], 2));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Triangle temp = (Triangle) o;
+        return isEquals(temp.r1[0], r1[0]) && isEquals(temp.r1[1], r1[1]) && isEquals(temp.r2[0], r2[0]) &&
+               isEquals(temp.r2[1], r2[1]) && isEquals(temp.r3[0], r3[0]) && isEquals(temp.r3[1], r3[1]);
+    }
 }

@@ -29,7 +29,21 @@ public class Square extends Shape {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Square#" + side;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Square temp = (Square) o;
+        return isEquals(temp.side, side);
+    }
+
 }

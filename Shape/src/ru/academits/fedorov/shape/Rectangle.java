@@ -33,4 +33,17 @@ public class Rectangle extends Shape {
     public String toString(){
         return "Rectangle#" + width + ":" + height;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != getClass()) {
+            return false;
+        }
+
+        Rectangle temp = (Rectangle) o;
+        return isEquals(temp.width, width) && isEquals(temp.height, height);
+    }
 }
