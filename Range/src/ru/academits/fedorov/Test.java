@@ -1,5 +1,7 @@
 package ru.academits.fedorov;
 
+import ru.academits.fedorov.Range;
+
 public class Test {
     public static void main(String[] args) {
         Range range1 = new Range(1.2, 2.5);
