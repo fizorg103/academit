@@ -27,16 +27,16 @@ public class Vector {
 
     @Override
     public String toString() {
-        String result = "{";
+        StringBuilder result = new StringBuilder("{");
         int length = values.length;
         for (int i = 0; i < length; ++i) {
-            result += String.format("%.5f", values[i]);
+            result.append(String.format("%.5f", values[i]));
             if (i == length - 1) {
                 break;
             }
-            result += ", ";
+            result.append(", ");
         }
-        result += "}";
-        return result;
+        result.append("}");
+        return result.toString();
     }
 }
