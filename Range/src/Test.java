@@ -1,11 +1,11 @@
-package ru.academits.fedorov;
+import ru.academits.fedorov.range.Range;
 
 import ru.academits.fedorov.Range;
 
 public class Test {
     public static void main(String[] args) {
         Range range1 = new Range(1.2, 2.5);
-        Range range2 = new Range(1.4, 1.8);
+        Range range2 = new Range(1.4, 2.6);
 
         System.out.println("Интервал A: " + range1.toString());
         System.out.println("Интервал B: " + range2.toString());
@@ -20,6 +20,7 @@ public class Test {
         number = 2.05;
         System.out.println("Число " + number + " в интервале A: " + range1.isInside(number));
         System.out.println();
+
         Range range3 = range1.getIntersection(range2);
         System.out.print("A and B: ");
         if (range3 != null) {
