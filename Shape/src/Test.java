@@ -18,7 +18,6 @@ public class Test {
         shapes[7] = new Triangle(1.2, 2.8, 3.1, 4.0, 0, 5);
 
         Arrays.sort(shapes, new ShapeAreaComparator());
-
         System.out.println("Данные о фигуре с максимальной площадью");
         Shape shape = shapes[shapes.length - 1];
         System.out.println(shape.toString());
@@ -27,15 +26,15 @@ public class Test {
 
 
         Arrays.sort(shapes, new ShapePerimeterComparator());
-        int index = 2;
         System.out.println("Данные о фигуре с вторым по величине периметром");
-        shape = shapes[shapes.length - index];
+        shape = shapes[shapes.length - 2];
         System.out.println(shape.toString());
         printInfo(shape);
         System.out.println();
     }
 
     private static void printInfo(Shape shape){
+        System.out.println("HashCode: " + shape.hashCode());
         System.out.println("Ширина:   " + shape.getWidth());
         System.out.println("Высота:   " + shape.getHeight());
         System.out.println("Периметр: " + shape.getPerimeter());
