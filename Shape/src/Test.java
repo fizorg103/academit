@@ -1,5 +1,5 @@
-import ru.academits.fedorov.comporator.ShapeAreaComparator;
-import ru.academits.fedorov.comporator.ShapePerimeterComparator;
+import ru.academits.fedorov.Comporator.ShapeAreaComparator;
+import ru.academits.fedorov.Comporator.ShapePerimeterComparator;
 import ru.academits.fedorov.shape.*;
 
 import java.util.Arrays;
@@ -18,16 +18,16 @@ public class Test {
         shapes[7] = new Triangle(1.2, 2.8, 3.1, 4.0, 0, 5);
 
         Arrays.sort(shapes, new ShapeAreaComparator());
-        int index = 1;
+
         System.out.println("Данные о фигуре с максимальной площадью");
-        Shape shape = shapes[shapes.length - index];
+        Shape shape = shapes[shapes.length - 1];
         System.out.println(shape.toString());
         printInfo(shape);
         System.out.println();
 
 
         Arrays.sort(shapes, new ShapePerimeterComparator());
-        index = 2;
+        int index = 2;
         System.out.println("Данные о фигуре с вторым по величине периметром");
         shape = shapes[shapes.length - index];
         System.out.println(shape.toString());

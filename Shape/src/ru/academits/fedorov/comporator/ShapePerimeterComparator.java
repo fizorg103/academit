@@ -1,4 +1,4 @@
-package ru.academits.fedorov.comporator;
+package ru.academits.fedorov.Comporator;
 
 import ru.academits.fedorov.shape.Shape;
 
