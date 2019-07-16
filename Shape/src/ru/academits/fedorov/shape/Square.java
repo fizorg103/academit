@@ -1,7 +1,7 @@
 package ru.academits.fedorov.shape;
 
 
-public class Square extends Shape {
+public class Square implements Shape {
     private double side;
 
     public Square(double width) {
@@ -43,11 +43,14 @@ public class Square extends Shape {
         }
 
         Square temp = (Square) o;
-        return isEquals(temp.side, side);
+        return temp.side == side;
     }
 
     @Override
     public int hashCode() {
-        return (int) side * 10;
+        final int prime = 29;
+        int hash = 1;
+        hash += hash * prime + Double.hashCode(side);
+        return hash;
     }
 }

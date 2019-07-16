@@ -2,7 +2,7 @@ package ru.academits.fedorov.shape;
 
 import java.util.Arrays;
 
-public class Triangle extends Shape {
+public class Triangle implements Shape {
     private double[] r1 = new double[2];
     private double[] r2 = new double[2];
     private double[] r3 = new double[2];
@@ -46,12 +46,14 @@ public class Triangle extends Shape {
         return "Triangle#" + r1[0] + "," + r1[1] + ":" + r2[0] + "," + r2[1] + ":" + r3[0] + "," + r3[1];
     }
 
-    private double getMax(double[] array) {
-        return Arrays.stream(array).max().getAsDouble();
+    private static double getMax(double[] array) {
+        Arrays.sort(array);
+        return array[array.length - 1];
     }
 
-    private double getMin(double[] array) {
-        return Arrays.stream(array).min().getAsDouble();
+    private static double getMin(double[] array) {
+        Arrays.sort(array);
+        return array[0];
     }
 
     private double getDistance(double[] r1, double[] r2) {
@@ -68,12 +70,17 @@ public class Triangle extends Shape {
         }
 
         Triangle temp = (Triangle) o;
-        return isEquals(temp.r1[0], r1[0]) && isEquals(temp.r1[1], r1[1]) && isEquals(temp.r2[0], r2[0]) &&
-                isEquals(temp.r2[1], r2[1]) && isEquals(temp.r3[0], r3[0]) && isEquals(temp.r3[1], r3[1]);
+        return temp.r1[0] == r1[0] && temp.r1[1] == r1[1] && temp.r2[0] == r2[0] &&
+                temp.r2[1] == r2[1] && temp.r3[0] == r3[0] && temp.r3[1] == r3[1];
     }
 
     @Override
     public int hashCode() {
-        return (int) (r1[0] + r1[1]) * 100 + (int) (r2[0] + r2[1]) * 10 + (int) (r3[0] + r3[1]);
+        final int prime = 29;
+        int hash = 1;
+        hash += hash * prime + Arrays.hashCode(r1);
+        hash += hash * prime + Arrays.hashCode(r2);
+        hash += hash * prime + Arrays.hashCode(r3);
+        return hash;
     }
 }

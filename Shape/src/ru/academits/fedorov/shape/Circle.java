@@ -1,6 +1,6 @@
 package ru.academits.fedorov.shape;
 
-public class Circle extends Shape{
+public class Circle implements Shape{
     private double radius;
 
     public Circle(double radius){
@@ -42,11 +42,14 @@ public class Circle extends Shape{
         }
 
         Circle temp = (Circle) o;
-        return isEquals(temp.radius, radius);
+        return temp.radius == radius;
     }
 
     @Override
     public int hashCode() {
-        return (int) radius * 10;
+        final int prime = 29;
+        int hash = 1;
+        hash += hash * prime + Double.hashCode(radius);
+        return hash;
     }
 }

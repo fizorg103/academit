@@ -1,6 +1,6 @@
 package ru.academits.fedorov.shape;
 
-public class Rectangle extends Shape {
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -44,11 +44,15 @@ public class Rectangle extends Shape {
         }
 
         Rectangle temp = (Rectangle) o;
-        return isEquals(temp.width, width) && isEquals(temp.height, height);
+        return temp.width == width && temp.height == height;
     }
 
     @Override
     public int hashCode() {
-        return (int) width * 10 + (int) height;
+        final int prime = 29;
+        int hash = 1;
+        hash += hash * prime + Double.hashCode(width);
+        hash += hash * prime + Double.hashCode(height);
+        return hash;
     }
 }
