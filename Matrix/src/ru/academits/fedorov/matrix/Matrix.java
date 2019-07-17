@@ -24,6 +24,31 @@ public class Matrix {
         }
     }
 
+    public Matrix(double[][] array) {
+        vectors = new Vector[array.length];
+
+        for (int i = 0; i < array.length; ++i) {
+            vectors[i] = new Vector(array[i]);
+        }
+    }
+
+    public Matrix(Vector[] vectors) {
+        int n = vectors.length;
+        this.vectors = new Vector[n];
+
+        int m = 0;
+        for (Vector vector: vectors) {
+            int size = vector.getSize();
+            if (m < size){
+                m = size;
+            }
+        }
+
+        for (int i = 0; i < n; ++i) {
+            this.vectors[i] = new Vector(m, vectors[i].getValues());
+        }
+    }
+
     @Override
     public String toString() { // TODO Передалать после Vector review
         StringBuilder result = new StringBuilder("{");
