@@ -31,6 +31,10 @@ public class Vector {
         return values.length;
     }
 
+    public double[] getValues(){
+        return values;
+    }
+
     public void add(Vector vector) {
         int minIndex = Math.min(values.length, vector.values.length);
         for (int i = 0; i < minIndex; ++i) {
