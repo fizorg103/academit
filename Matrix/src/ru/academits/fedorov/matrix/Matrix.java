@@ -34,12 +34,15 @@ public class Matrix {
 
     public Matrix(Vector[] vectors) {
         int n = vectors.length;
+        if (n <= 0) {
+            throw new IllegalArgumentException("Vectors count <= 0");
+        }
         this.vectors = new Vector[n];
 
         int m = 0;
-        for (Vector vector: vectors) {
+        for (Vector vector : vectors) {
             int size = vector.getSize();
-            if (m < size){
+            if (m < size) {
                 m = size;
             }
         }
@@ -47,6 +50,37 @@ public class Matrix {
         for (int i = 0; i < n; ++i) {
             this.vectors[i] = new Vector(m, vectors[i].getValues());
         }
+    }
+
+    public int[] getSize() {
+        return new int[]{vectors.length, vectors[0].getSize()};
+    }
+
+    public Vector getLine(int index) {
+        if (index < 0 || index > vectors.length - 1) {
+            throw new IllegalArgumentException("Out of range");
+        }
+        return vectors[index];
+    }
+
+    public void setLine(int index, Vector vector){
+        if (index < 0 || index > vectors.length - 1) {
+            throw new IllegalArgumentException("Out of range");
+        }
+
+        vectors[index] = vector;
+    }
+
+    public Vector getColumn(int index) {
+        if (index < 0 || index > vectors[0].getSize() - 1) {
+            throw new IllegalArgumentException("Out of range");
+        }
+
+        Vector vector = new Vector(vectors.length);
+        for (int i = 0; i < vectors.length; ++i) {
+            vector.setValue(i, vectors[i].getValue(index));
+        }
+        return vector;
     }
 
     @Override
