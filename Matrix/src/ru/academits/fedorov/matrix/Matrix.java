@@ -2,8 +2,6 @@ package ru.academits.fedorov.matrix;
 
 import ru.academits.fedorov.vector.Vector;
 
-import java.util.Arrays;
-
 public class Matrix {
     private Vector[] vectors;
 
@@ -92,7 +90,6 @@ public class Matrix {
         for (int i = 0; i < m; ++i) {
             vectorsT[i] = this.getColumn(i);
         }
-
         vectors = vectorsT;
     }
 
@@ -199,7 +196,7 @@ public class Matrix {
 
         Matrix matrixRes = new Matrix(matrix1.vectors.length, matrix2.vectors[0].getSize());
 
-        for (int i = 0; i < matrix1.vectors.length; ++i){
+        for (int i = 0; i < matrix1.vectors.length; ++i) {
             for (int j = 0; j < matrix2.vectors[0].getSize(); ++j) {
                 double value = Vector.dot(matrix1.vectors[i], matrix2.getColumn(j));
                 matrixRes.vectors[i].setValue(j, value);
