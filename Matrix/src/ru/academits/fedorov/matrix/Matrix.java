@@ -170,6 +170,44 @@ public class Matrix {
         }
     }
 
+    public static Matrix add(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.vectors.length != matrix2.vectors.length || matrix1.vectors[0].getSize() != matrix2.vectors[0].getSize()) {
+            throw new IllegalArgumentException("Matrices must be one size.");
+        }
+
+        Matrix matrixRes = new Matrix(matrix1);
+        matrixRes.add(matrix2);
+
+        return matrixRes;
+    }
+
+    public static Matrix subtract(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.vectors.length != matrix2.vectors.length || matrix1.vectors[0].getSize() != matrix2.vectors[0].getSize()) {
+            throw new IllegalArgumentException("Matrices must be one size.");
+        }
+
+        Matrix matrixRes = new Matrix(matrix1);
+        matrixRes.subtract(matrix2);
+
+        return matrixRes;
+    }
+
+    public static Matrix dot(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.vectors[0].getSize() != matrix2.vectors.length) {
+            throw new IllegalArgumentException("Wrong matrices dimension.");
+        }
+
+        Matrix matrixRes = new Matrix(matrix1.vectors.length, matrix2.vectors[0].getSize());
+
+        for (int i = 0; i < matrix1.vectors.length; ++i){
+            for (int j = 0; j < matrix2.vectors[0].getSize(); ++j) {
+                double value = Vector.dot(matrix1.vectors[i], matrix2.getColumn(j));
+                matrixRes.vectors[i].setValue(j, value);
+            }
+        }
+        return matrixRes;
+    }
+
     @Override
     public String toString() { // TODO Передалать после Vector review
         StringBuilder result = new StringBuilder("{");
