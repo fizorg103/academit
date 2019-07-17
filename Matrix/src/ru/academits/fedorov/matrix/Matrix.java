@@ -3,7 +3,7 @@ package ru.academits.fedorov.matrix;
 import ru.academits.fedorov.vector.Vector;
 
 public class Matrix {
-    Vector[] vectors;
+    private Vector[] vectors;
 
     public Matrix(int n, int m) {
         if (n <= 0 || m <= 0) {
@@ -37,10 +37,5 @@ public class Matrix {
         }
         result.append("}");
         return result.toString();
-    }
-
-    public static void main(String[] args) {
-        Matrix matrix = new Matrix(2, 3);
-        System.out.println(matrix.toString());
     }
 }
