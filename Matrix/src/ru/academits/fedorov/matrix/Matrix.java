@@ -137,6 +137,39 @@ public class Matrix {
         return res;
     }
 
+    public Vector dot(Vector vector) {
+        if (vector.getSize() != vectors[0].getSize()) {
+            throw new IllegalArgumentException(String.format("Vector size != %d", vectors[0].getSize()));
+        }
+        Vector vectorRes = new Vector(vectors.length);
+
+        for (int i = 0; i < vectors.length; ++i) {
+            vectorRes.setValue(i, Vector.dot(vector, vectors[i]));
+        }
+
+        return vectorRes;
+    }
+
+    public void add(Matrix matrix) {
+        if (matrix.vectors.length != vectors.length || matrix.vectors[0].getSize() != vectors[0].getSize()) {
+            throw new IllegalArgumentException("Matrices must be one size.");
+        }
+
+        for (int i = 0; i < vectors.length; ++i) {
+            vectors[i].add(matrix.vectors[i]);
+        }
+    }
+
+    public void subtract(Matrix matrix) {
+        if (matrix.vectors.length != vectors.length || matrix.vectors[0].getSize() != vectors[0].getSize()) {
+            throw new IllegalArgumentException("Matrices must be one size.");
+        }
+
+        for (int i = 0; i < vectors.length; ++i) {
+            vectors[i].subtract(matrix.vectors[i]);
+        }
+    }
+
     @Override
     public String toString() { // TODO Передалать после Vector review
         StringBuilder result = new StringBuilder("{");
