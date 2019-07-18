@@ -49,7 +49,7 @@ public class Circle implements Shape{
     public int hashCode() {
         final int prime = 29;
         int hash = 1;
-        hash += hash * prime + Double.hashCode(radius);
+        hash = hash * prime + Double.hashCode(radius);
         return hash;
     }
 }
