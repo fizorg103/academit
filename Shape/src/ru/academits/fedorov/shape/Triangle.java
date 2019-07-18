@@ -56,7 +56,7 @@ public class Triangle implements Shape {
         return array[0];
     }
 
-    private double getDistance(double[] r1, double[] r2) {
+    private static double getDistance(double[] r1, double[] r2) {
         return Math.sqrt(Math.pow(r1[1] - r2[1], 2) + Math.pow(r1[0] - r2[0], 2));
     }
 
