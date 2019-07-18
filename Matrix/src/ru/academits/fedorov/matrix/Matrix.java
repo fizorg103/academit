@@ -57,23 +57,23 @@ public class Matrix {
     }
 
     public Vector getLine(int index) {
-        if (index < 0 || index > vectors.length - 1) {
-            throw new IllegalArgumentException("Out of range");
+        if (index < 0 || index >= vectors.length) {
+            throw new ArrayIndexOutOfBoundsException("Out of range");
         }
-        return vectors[index];
+        return new Vector(vectors[index]);
     }
 
     public void setLine(int index, Vector vector) {
-        if (index < 0 || index > vectors.length - 1) {
-            throw new IllegalArgumentException("Out of range");
+        if (index < 0 || index >= vectors.length) {
+            throw new ArrayIndexOutOfBoundsException("Out of range");
         }
 
         vectors[index] = new Vector(vectors[0].getSize(), vector.getValues());
     }
 
     public Vector getColumn(int index) {
-        if (index < 0 || index > vectors[0].getSize() - 1) {
-            throw new IllegalArgumentException("Out of range");
+        if (index < 0 || index >= vectors[0].getSize()) {
+            throw new ArrayIndexOutOfBoundsException("Out of range");
         }
 
         Vector vector = new Vector(vectors.length);
@@ -95,13 +95,13 @@ public class Matrix {
 
     public void scalarMultiplication(double alpha) {
         for (int i = 0; i < vectors.length; ++i) {
-            vectors[i].scalarMultiplication(alpha);
+            vectors[i].mulByNumber(alpha);
         }
     }
 
     public double getDeterminant() {
         if (vectors.length != vectors[0].getSize()) {
-            throw new IllegalArgumentException("M != N. The Matrix does not have determinant.");
+            throw new IllegalThreadStateException ("M != N. The Matrix does not have determinant.");
         }
 
         Vector[] vectors = new Vector[this.vectors.length];
@@ -117,7 +117,7 @@ public class Matrix {
                 }
                 double alpha = -vectors[i].getValue(i) / vectors[j].getValue(i);
                 res /= alpha;
-                vectors[j].scalarMultiplication(alpha);
+                vectors[j].mulByNumber(alpha);
                 vectors[j].add(vectors[i]);
 
                 if (i == j - 1) {
@@ -206,7 +206,7 @@ public class Matrix {
     }
 
     @Override
-    public String toString() { // TODO Передалать после Vector review
+    public String toString() {
         StringBuilder result = new StringBuilder("{");
 
         for (int i = 0; i < vectors.length; ++i) {
