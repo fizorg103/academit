@@ -9,10 +9,8 @@ public class Vector {
         if (n <= 0) {
             throw new IllegalArgumentException("Argument N <= 0.");
         }
+
         values = new double[n];
-        for (int i = 0; i < n - 1; ++i) {
-            values[i] = 0;
-        }
     }
 
     public Vector(Vector vector) {
@@ -20,6 +18,10 @@ public class Vector {
     }
 
     public Vector(double[] values) {
+        if (values.length == 0) {
+            throw new IllegalArgumentException("Values.length > 0.");
+        }
+
         this.values = Arrays.copyOf(values, values.length);
     }
 
@@ -31,38 +33,40 @@ public class Vector {
         return values.length;
     }
 
-    public double[] getValues(){
-        return values;
+    public double[] getValues() {
+        return Arrays.copyOf(values, values.length);
     }
 
     public void add(Vector vector) {
-        int minIndex = Math.min(values.length, vector.values.length);
-        for (int i = 0; i < minIndex; ++i) {
-            if (i < vector.values.length) {
-                values[i] += vector.values[i];
-            }
+        int length = vector.values.length;
+        if (length > values.length) {
+            values = Arrays.copyOf(values, length);
+        }
+
+        for (int i = 0; i < length; ++i) {
+            values[i] += vector.values[i];
         }
     }
 
     public void subtract(Vector vector) {
-        int minIndex = Math.min(values.length, vector.values.length);
-        for (int i = 0; i < minIndex; ++i) {
-            if (i < vector.values.length) {
-                values[i] -= vector.values[i];
-            }
+        int length = vector.values.length;
+        if (length > values.length) {
+            values = Arrays.copyOf(values, length);
+        }
+
+        for (int i = 0; i < length; ++i) {
+            values[i] -= vector.values[i];
         }
     }
 
-    public void scalarMultiplication(double alpha) {
+    public void mulByNumber(double alpha) {
         for (int i = 0; i < values.length; ++i) {
             values[i] *= alpha;
         }
     }
 
-    public void expand() {
-        for (int i = 0; i < values.length; ++i) {
-            values[i] *= -1;
-        }
+    public void turn() {
+        mulByNumber(-1);
     }
 
     public double getLength() {
@@ -74,19 +78,17 @@ public class Vector {
     }
 
     public double getValue(int index) {
-        if (index < 0 || index > values.length - 1) {
-            throw new IllegalArgumentException("index out of range");
-        } else {
-            return values[index];
+        if (index < 0 || index >= values.length) {
+            throw new ArrayIndexOutOfBoundsException("index out of range");
         }
+        return values[index];
     }
 
     public void setValue(int index, double value) {
-        if (index < 0 || index > values.length - 1) {
-            throw new IllegalArgumentException("index out of range");
-        } else {
-            values[index] = value;
+        if (index < 0 || index >= values.length) {
+            throw new ArrayIndexOutOfBoundsException("index out of range");
         }
+        values[index] = value;
     }
 
     @Override
@@ -144,17 +146,17 @@ public class Vector {
         vectorRes = new Vector(vector2);
         vectorRes.add(vector1);
         return vectorRes;
-}
+    }
 
     public static Vector subtract(Vector vector1, Vector vector2) {
         Vector vectorRes;
-        if (vector1.values.length > vector2.values.length){
+        if (vector1.values.length > vector2.values.length) {
             vectorRes = new Vector(vector1);
             vectorRes.subtract(vector2);
         }
 
         vectorRes = new Vector(vector2);
-        vectorRes.expand();
+        vectorRes.turn();
         vectorRes.add(vector1);
 
         return vectorRes;
