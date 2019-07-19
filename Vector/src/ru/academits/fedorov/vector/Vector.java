@@ -1,7 +1,6 @@
 package ru.academits.fedorov.vector;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 public class Vector {
     private double[] values;
@@ -27,9 +26,10 @@ public class Vector {
     }
 
     public Vector(int n, double[] values) {
-        if (values.length == 0) {
-            throw new IllegalArgumentException("Values.length > 0.");
+        if (n <= 0) {
+            throw new IllegalArgumentException("Argument N <= 0.");
         }
+        
         this.values = Arrays.copyOf(values, n);
     }
 
@@ -83,14 +83,14 @@ public class Vector {
 
     public double getValue(int index) {
         if (index < 0 || index >= values.length) {
-            throw new NoSuchElementException("index out of range");
+            throw new IndexOutOfBoundsException("index out of range");
         }
         return values[index];
     }
 
     public void setValue(int index, double value) {
         if (index < 0 || index >= values.length) {
-            throw new NoSuchElementException("index out of range");
+            throw new IndexOutOfBoundsException("index out of range");
         }
         values[index] = value;
     }
