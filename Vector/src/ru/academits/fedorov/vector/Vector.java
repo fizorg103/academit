@@ -1,6 +1,7 @@
 package ru.academits.fedorov.vector;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class Vector {
     private double[] values;
@@ -26,6 +27,9 @@ public class Vector {
     }
 
     public Vector(int n, double[] values) {
+        if (values.length == 0) {
+            throw new IllegalArgumentException("Values.length > 0.");
+        }
         this.values = Arrays.copyOf(values, n);
     }
 
@@ -79,14 +83,14 @@ public class Vector {
 
     public double getValue(int index) {
         if (index < 0 || index >= values.length) {
-            throw new ArrayIndexOutOfBoundsException("index out of range");
+            throw new NoSuchElementException("index out of range");
         }
         return values[index];
     }
 
     public void setValue(int index, double value) {
         if (index < 0 || index >= values.length) {
-            throw new ArrayIndexOutOfBoundsException("index out of range");
+            throw new NoSuchElementException("index out of range");
         }
         values[index] = value;
     }
@@ -136,29 +140,14 @@ public class Vector {
     }
 
     public static Vector add(Vector vector1, Vector vector2) {
-        Vector vectorRes;
-        if (vector1.values.length > vector2.values.length) {
-            vectorRes = new Vector(vector1);
-            vectorRes.add(vector2);
-            return vectorRes;
-        }
-
-        vectorRes = new Vector(vector2);
-        vectorRes.add(vector1);
+        Vector vectorRes = new Vector(vector1);
+        vectorRes.add(vector2);
         return vectorRes;
     }
 
     public static Vector subtract(Vector vector1, Vector vector2) {
-        Vector vectorRes;
-        if (vector1.values.length > vector2.values.length) {
-            vectorRes = new Vector(vector1);
-            vectorRes.subtract(vector2);
-        }
-
-        vectorRes = new Vector(vector2);
-        vectorRes.turn();
-        vectorRes.add(vector1);
-
+        Vector vectorRes = new Vector(vector1);
+        vectorRes.subtract(vector2);
         return vectorRes;
     }
 
