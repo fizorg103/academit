@@ -29,7 +29,6 @@ public class Test {
 
         double[] a = new double[5];
         System.out.println(Arrays.toString(a));
-
-        double b = matrix2.getDeterminant();
+        System.out.println(matrix1.getDeterminant());
     }
 }

@@ -3,44 +3,52 @@ package ru.academits.fedorov.matrix;
 import ru.academits.fedorov.vector.Vector;
 
 public class Matrix {
-    private Vector[] vectors;
+    private Vector[] rows;
 
     public Matrix(int n, int m) {
         if (n <= 0 || m <= 0) {
             throw new IllegalArgumentException("M or N <= 0.");
         }
 
-        vectors = new Vector[n];
+        rows = new Vector[n];
         for (int i = 0; i < n; ++i) {
-            vectors[i] = new Vector(m);
+            rows[i] = new Vector(m);
         }
     }
 
     public Matrix(Matrix matrix) {
-        vectors = new Vector[matrix.vectors.length];
+        rows = new Vector[matrix.rows.length];
 
-        for (int i = 0; i < matrix.vectors.length; ++i) {
-            vectors[i] = new Vector(matrix.vectors[i]);
+        for (int i = 0; i < matrix.rows.length; ++i) {
+            rows[i] = new Vector(matrix.rows[i]);
         }
     }
 
     public Matrix(double[][] array) {
-        vectors = new Vector[array.length];
+        if (array.length == 0) {
+            throw new IllegalArgumentException("Array.length <= 0.");
+        }
+
+        if (array[0] == null) {
+            throw new IllegalArgumentException("Array[0].length <= 0.");
+        }
+
+        rows = new Vector[array.length];
 
         for (int i = 0; i < array.length; ++i) {
-            vectors[i] = new Vector(array[i]);
+            rows[i] = new Vector(array[i]);
         }
     }
 
-    public Matrix(Vector[] vectors) {
-        int n = vectors.length;
+    public Matrix(Vector[] lines) {
+        int n = lines.length;
         if (n <= 0) {
             throw new IllegalArgumentException("Vectors count <= 0");
         }
-        this.vectors = new Vector[n];
+        this.rows = new Vector[n];
 
         int m = 0;
-        for (Vector vector : vectors) {
+        for (Vector vector : lines) {
             int size = vector.getSize();
             if (m < size) {
                 m = size;
@@ -48,67 +56,72 @@ public class Matrix {
         }
 
         for (int i = 0; i < n; ++i) {
-            this.vectors[i] = new Vector(m, vectors[i].getValues());
+            this.rows[i] = new Vector(m, lines[i].getValues());
         }
     }
 
-    public int[] getSize() {
-        return new int[]{vectors.length, vectors[0].getSize()};
+    public int getRowsCount() {
+        return rows.length;
     }
 
-    public Vector getLine(int index) {
-        if (index < 0 || index >= vectors.length) {
-            throw new ArrayIndexOutOfBoundsException("Out of range");
-        }
-        return new Vector(vectors[index]);
+    public int getColumnsCount() {
+        return rows[0].getSize();
     }
 
-    public void setLine(int index, Vector vector) {
-        if (index < 0 || index >= vectors.length) {
-            throw new ArrayIndexOutOfBoundsException("Out of range");
+    public Vector getRow(int index) {
+        if (index < 0 || index >= rows.length) {
+            throw new IndexOutOfBoundsException("Out of range");
+        }
+        return new Vector(rows[index]);
+    }
+
+    public void setRow(int index, Vector vector) {
+        if (index < 0 || index >= rows.length) {
+            throw new IndexOutOfBoundsException("Out of range");
         }
 
-        vectors[index] = new Vector(vectors[0].getSize(), vector.getValues());
+        rows[index] = new Vector(getColumnsCount(), vector.getValues());
     }
 
     public Vector getColumn(int index) {
-        if (index < 0 || index >= vectors[0].getSize()) {
-            throw new ArrayIndexOutOfBoundsException("Out of range");
+        if (index < 0 || index >= getColumnsCount()) {
+            throw new IndexOutOfBoundsException("Out of range");
         }
 
-        Vector vector = new Vector(vectors.length);
-        for (int i = 0; i < vectors.length; ++i) {
-            vector.setValue(i, vectors[i].getValue(index));
+        Vector vector = new Vector(rows.length);
+        for (int i = 0; i < rows.length; ++i) {
+            vector.setValue(i, rows[i].getValue(index));
         }
         return vector;
     }
 
     public void transpose() {
-        int m = vectors[0].getSize();
+        int m = getColumnsCount();
         Vector[] vectorsT = new Vector[m];
 
         for (int i = 0; i < m; ++i) {
             vectorsT[i] = this.getColumn(i);
         }
-        vectors = vectorsT;
+        rows = vectorsT;
     }
 
-    public void scalarMultiplication(double alpha) {
-        for (int i = 0; i < vectors.length; ++i) {
-            vectors[i].mulByNumber(alpha);
+    public void mulByNumber(double alpha) {
+        for (Vector row : rows) {
+            row.mulByNumber(alpha);
         }
     }
 
     public double getDeterminant() {
-        if (vectors.length != vectors[0].getSize()) {
-            throw new IllegalThreadStateException ("M != N. The Matrix does not have determinant.");
+        if (rows.length != getColumnsCount()) {
+            throw new Error("M != N. The Matrix does not have determinant.");
         }
 
-        Vector[] vectors = new Vector[this.vectors.length];
+        Vector[] vectors = new Vector[this.rows.length];
         for (int i = 0; i < vectors.length; ++i) {
-            vectors[i] = new Vector(this.vectors[i]);
+            vectors[i] = new Vector(this.rows[i]);
         }
 
+        double epsilon = 1e-30;
         double res = 1;
         for (int i = 0; i < vectors.length - 1; ++i) {
             for (int j = i + 1; j < vectors.length; ++j) {
@@ -121,7 +134,7 @@ public class Matrix {
                 vectors[j].add(vectors[i]);
 
                 if (i == j - 1) {
-                    if (vectors[j].getValue(j) == 0) {
+                    if (Math.abs(vectors[j].getValue(j)) < epsilon) {
                         return 0;
                     }
                 }
@@ -135,40 +148,40 @@ public class Matrix {
     }
 
     public Vector dot(Vector vector) {
-        if (vector.getSize() != vectors[0].getSize()) {
-            throw new IllegalArgumentException(String.format("Vector size != %d", vectors[0].getSize()));
+        if (vector.getSize() != getColumnsCount()) {
+            throw new IllegalArgumentException(String.format("Vector size != %d", rows[0].getSize()));
         }
-        Vector vectorRes = new Vector(vectors.length);
+        Vector vectorRes = new Vector(rows.length);
 
-        for (int i = 0; i < vectors.length; ++i) {
-            vectorRes.setValue(i, Vector.dot(vector, vectors[i]));
+        for (int i = 0; i < rows.length; ++i) {
+            vectorRes.setValue(i, Vector.dot(vector, rows[i]));
         }
 
         return vectorRes;
     }
 
     public void add(Matrix matrix) {
-        if (matrix.vectors.length != vectors.length || matrix.vectors[0].getSize() != vectors[0].getSize()) {
+        if (matrix.rows.length != rows.length || matrix.getColumnsCount() != getColumnsCount()) {
             throw new IllegalArgumentException("Matrices must be one size.");
         }
 
-        for (int i = 0; i < vectors.length; ++i) {
-            vectors[i].add(matrix.vectors[i]);
+        for (int i = 0; i < rows.length; ++i) {
+            rows[i].add(matrix.rows[i]);
         }
     }
 
     public void subtract(Matrix matrix) {
-        if (matrix.vectors.length != vectors.length || matrix.vectors[0].getSize() != vectors[0].getSize()) {
+        if (matrix.rows.length != rows.length || matrix.getColumnsCount() != getColumnsCount()) {
             throw new IllegalArgumentException("Matrices must be one size.");
         }
 
-        for (int i = 0; i < vectors.length; ++i) {
-            vectors[i].subtract(matrix.vectors[i]);
+        for (int i = 0; i < rows.length; ++i) {
+            rows[i].subtract(matrix.rows[i]);
         }
     }
 
     public static Matrix add(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.vectors.length != matrix2.vectors.length || matrix1.vectors[0].getSize() != matrix2.vectors[0].getSize()) {
+        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Matrices must be one size.");
         }
 
@@ -179,7 +192,7 @@ public class Matrix {
     }
 
     public static Matrix subtract(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.vectors.length != matrix2.vectors.length || matrix1.vectors[0].getSize() != matrix2.vectors[0].getSize()) {
+        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Matrices must be one size.");
         }
 
@@ -190,16 +203,16 @@ public class Matrix {
     }
 
     public static Matrix dot(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.vectors[0].getSize() != matrix2.vectors.length) {
+        if (matrix1.getColumnsCount() != matrix2.rows.length) {
             throw new IllegalArgumentException("Wrong matrices dimension.");
         }
 
-        Matrix matrixRes = new Matrix(matrix1.vectors.length, matrix2.vectors[0].getSize());
+        Matrix matrixRes = new Matrix(matrix1.rows.length, matrix2.rows[0].getSize());
 
-        for (int i = 0; i < matrix1.vectors.length; ++i) {
-            for (int j = 0; j < matrix2.vectors[0].getSize(); ++j) {
-                double value = Vector.dot(matrix1.vectors[i], matrix2.getColumn(j));
-                matrixRes.vectors[i].setValue(j, value);
+        for (int i = 0; i < matrix1.rows.length; ++i) {
+            for (int j = 0; j < matrix2.getColumnsCount(); ++j) {
+                double value = Vector.dot(matrix1.rows[i], matrix2.getColumn(j));
+                matrixRes.rows[i].setValue(j, value);
             }
         }
         return matrixRes;
@@ -209,15 +222,16 @@ public class Matrix {
     public String toString() {
         StringBuilder result = new StringBuilder("{");
 
-        for (int i = 0; i < vectors.length; ++i) {
+        for (int i = 0; i < rows.length; ++i) {
             if (i != 0) {
                 result.append(" ");
             }
-            result.append(vectors[i].toString());
-            if (i == vectors.length - 1) {
+            result.append(rows[i].toString());
+            if (i == rows.length - 1) {
                 break;
             }
-            result.append(", " + System.lineSeparator());
+            result.append(", ");
+            result.append(System.lineSeparator());
         }
         result.append("}");
         return result.toString();
